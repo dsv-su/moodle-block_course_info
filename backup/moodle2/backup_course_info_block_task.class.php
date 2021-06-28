@@ -22,12 +22,12 @@
  */
 
 /**
- * Specialised backup task for the html block
+ * Specialised backup task for the course_info block
  * (requires encode_content_links in some configdata attrs)
  *
  * TODO: Finish phpdocs
  */
-class backup_html_block_task extends backup_block_task {
+class backup_course_info_block_task extends backup_block_task {
 
     protected function define_my_settings() {
     }

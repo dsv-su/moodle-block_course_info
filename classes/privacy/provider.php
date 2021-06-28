@@ -82,7 +82,7 @@ class provider implements
                   FROM {block_instances} b
             INNER JOIN {context} c ON c.instanceid = b.id AND c.contextlevel = :contextblock
             INNER JOIN {context} bpc ON bpc.id = b.parentcontextid
-                 WHERE b.blockname = 'html'
+                 WHERE b.blockname = 'course_info'
                    AND bpc.contextlevel = :contextuser
                    AND bpc.instanceid = :userid";
 
@@ -114,7 +114,7 @@ class provider implements
         $sql = "SELECT bpc.instanceid AS userid
                   FROM {block_instances} bi
                   JOIN {context} bpc ON bpc.id = bi.parentcontextid
-                 WHERE bi.blockname = 'html'
+                 WHERE bi.blockname = 'course_info'
                    AND bpc.contextlevel = :contextuser
                    AND bi.id = :blockinstanceid";
 
@@ -143,7 +143,7 @@ class provider implements
                     bi.*
                   FROM {context} c
             INNER JOIN {block_instances} bi ON bi.id = c.instanceid AND c.contextlevel = :contextlevel
-                 WHERE bi.blockname = 'html'
+                 WHERE bi.blockname = 'course_info'
                    AND(
                     c.id {$contextsql}
                 )
@@ -157,7 +157,7 @@ class provider implements
         $instances = $DB->get_recordset_sql($sql, $params);
         foreach ($instances as $instance) {
             $context = context_block::instance($instance->id);
-            $block = block_instance('html', $instance);
+            $block = block_instance('course_info', $instance);
             if (empty($block->config)) {
                 // Skip this block. It has not been configured.
                 continue;
@@ -197,7 +197,7 @@ class provider implements
             return;
         }
 
-        // The only way to delete data for the html block is to delete the block instance itself.
+        // The only way to delete data for the course_info block is to delete the block instance itself.
         if ($blockinstance = static::get_instance_from_context($context)) {
             blocks_delete_instance($blockinstance);
         }
@@ -222,7 +222,7 @@ class provider implements
      * @param   approved_contextlist    $contextlist    The approved contexts and user information to delete information for.
      */
     public static function delete_data_for_user(approved_contextlist $contextlist) {
-        // The only way to delete data for the html block is to delete the block instance itself.
+        // The only way to delete data for the course_info block is to delete the block instance itself.
         foreach ($contextlist as $context) {
 
             if (!$context instanceof context_block) {
@@ -243,6 +243,6 @@ class provider implements
     protected static function get_instance_from_context(context_block $context) {
         global $DB;
 
-        return $DB->get_record('block_instances', ['id' => $context->instanceid, 'blockname' => 'html']);
+        return $DB->get_record('block_instances', ['id' => $context->instanceid, 'blockname' => 'course_info']);
     }
 }

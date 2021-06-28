@@ -78,7 +78,7 @@ class block_course_info extends block_base {
         if ($daisyid) {
             $this->content->text = '<a href="https://daisy.dsv.su.se/servlet/Momentinfo?id=' . $daisyid . '" target="_blank">Course schema</a><br/><a href="https://daisy.dsv.su.se/servlet/schema.moment.Momentschema?id=' . $daisyid . '" target="_blank">Course schedule</a>';
         } else {
-            $this->content->text = 'Not applicable';
+            return null;
         }
         return $this->content;
     }
