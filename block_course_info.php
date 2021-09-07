@@ -53,7 +53,7 @@ class block_course_info extends block_base
 
     function user_can_edit()
     {
-        return true;
+        return is_siteadmin();
     }
 
     public function instance_can_be_hidden()
