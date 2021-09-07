@@ -15,19 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_course_info', language 'en', branch 'MOODLE_20_STABLE'
+ * Strings for component 'block_course_info', language 'sv', branch 'MOODLE_20_STABLE'
  *
  * @package   block_course_info
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['configtitle'] = 'Add a new title';
-$string['course_info:addinstance'] = 'Add a new Course Information block';
-$string['course_info:myaddinstance'] = 'Add a new Course Information block to Dashboard';
-$string['newcourseinfoblock'] = '(new Course Information block)';
-$string['pluginname'] = 'Course Information';
-$string['syllabus'] = 'Course syllabus';
-$string['schedule'] = 'Course schedule';
-$string['search:content'] = 'Course Information block content';
-$string['privacy:metadata:block'] = 'The Course Information block stores all of its data within the block subsystem.';
+$string['configtitle'] = 'Lägg till en ny titel';
+$string['course_info:addinstance'] = 'Lägg till ett nytt kursinformationsblock';
+$string['course_info:myaddinstance'] = 'Lägg till ett nytt kursinformationsblock till Mitt Hem';
+$string['newcourseinfoblock'] = '(Nytt kursinformationsblock)';
+$string['pluginname'] = 'Kursinformation';
+$string['syllabus'] = 'Kursinformation';
+$string['schedule'] = 'Kursschema';
+$string['search:content'] = 'Kursinformationsblockets innehåll';
+$string['privacy:metadata:block'] = 'Kursinformationsblocket lagrar all sin data i blockets subsystem.';

@@ -21,24 +21,29 @@
  * @copyright 1999 onwards Martin Dougiamas (http://dougiamas.com)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class block_course_info extends block_base
+{
 
-class block_course_info extends block_base {
-
-    function init() {
+    function init()
+    {
         $this->title = get_string('pluginname', 'block_course_info');
     }
 
-    function has_config() {
+    function has_config()
+    {
         return false;
     }
 
-    function applicable_formats() {
+    function applicable_formats()
+    {
         return [
-            'course-view' => true
+            'course-view' => true,
+            'site' => true
         ];
     }
 
-    function specialization() {
+    function specialization()
+    {
         if (isset($this->config->title)) {
             $this->title = $this->title = format_string($this->config->title, true, ['context' => $this->context]);
         } else {
@@ -46,23 +51,28 @@ class block_course_info extends block_base {
         }
     }
 
-    function user_can_edit() {
+    function user_can_edit()
+    {
         return true;
     }
 
-    public function instance_can_be_hidden() {
+    public function instance_can_be_hidden()
+    {
         return false;
     }
 
-    public function instance_can_be_collapsed() {
+    public function instance_can_be_collapsed()
+    {
         return false;
     }
 
-    function instance_allow_multiple() {
+    function instance_allow_multiple()
+    {
         return false;
     }
 
-    function get_content() {
+    function get_content()
+    {
         global $CFG, $DB;
 
         if ($this->content !== NULL) {
@@ -73,17 +83,20 @@ class block_course_info extends block_base {
         $this->content->footer = '';
         $this->title = 'Course information';
         $courseid = context::instance_by_id($this->instance->parentcontextid)->instanceid;
-        $idnumbers = explode(',', $DB->get_record('course', array('id'=> $courseid))->idnumber);
+        $idnumbers = explode(',', $DB->get_record('course', array('id' => $courseid))->idnumber);
         $daisyid = is_numeric(end($idnumbers)) ? trim(end($idnumbers)) : null;
         if ($daisyid) {
-            $this->content->text = '<a href="https://daisy.dsv.su.se/servlet/Momentinfo?id=' . $daisyid . '" target="_blank">Course schema</a><br/><a href="https://daisy.dsv.su.se/servlet/schema.moment.Momentschema?id=' . $daisyid . '" target="_blank">Course schedule</a>';
+            $this->content->text = '<a href="https://daisy.dsv.su.se/servlet/Momentinfo?id=' . $daisyid . '" target="_blank">' .
+                get_string('syllabus', 'block_course_info') . '</a><br/><a href="https://daisy.dsv.su.se/servlet/schema.moment.Momentschema?id=' .
+                $daisyid . '" target="_blank">' . get_string('schedule', 'block_course_info') . '</a>';
         } else {
             return null;
         }
         return $this->content;
     }
 
-    public function get_content_for_external($output) {
+    public function get_content_for_external($output)
+    {
         global $CFG;
         require_once($CFG->libdir . '/externallib.php');
 
@@ -105,7 +118,8 @@ class block_course_info extends block_base {
     /**
      * Serialize and store config data
      */
-    function instance_config_save($data, $nolongerused = false) {
+    function instance_config_save($data, $nolongerused = false)
+    {
         global $DB;
 
         $config = clone($data);
@@ -114,7 +128,8 @@ class block_course_info extends block_base {
         parent::instance_config_save($config, $nolongerused);
     }
 
-    function instance_delete() {
+    function instance_delete()
+    {
         return true;
     }
 
@@ -123,12 +138,14 @@ class block_course_info extends block_base {
      * @param int $fromid the id number of the block instance to copy from
      * @return boolean
      */
-    public function instance_copy($fromid) {
+    public function instance_copy($fromid)
+    {
         $fromcontext = context_block::instance($fromid);
         return true;
     }
 
-    function content_is_trusted() {
+    function content_is_trusted()
+    {
         global $SCRIPT;
 
         if (!$context = context::instance_by_id($this->instance->parentcontextid, IGNORE_MISSING)) {
@@ -155,7 +172,8 @@ class block_course_info extends block_base {
      *
      * @return bool
      */
-    public function instance_can_be_docked() {
+    public function instance_can_be_docked()
+    {
         return false;
     }
 
@@ -164,7 +182,8 @@ class block_course_info extends block_base {
      *
      * @return array
      */
-    function html_attributes() {
+    function html_attributes()
+    {
         global $CFG;
 
         $attributes = parent::html_attributes();
@@ -178,14 +197,15 @@ class block_course_info extends block_base {
      * @return stdClass the configs for both the block instance and plugin
      * @since Moodle 3.8
      */
-    public function get_config_for_external() {
+    public function get_config_for_external()
+    {
         global $CFG;
 
         // Return all settings for all users since it is safe (no private keys, etc..).
         $instanceconfigs = !empty($this->config) ? $this->config : new stdClass();
-        $pluginconfigs = (object) ['allowcssclasses' => $CFG->block_course_info_allowcssclasses];
+        $pluginconfigs = (object)['allowcssclasses' => $CFG->block_course_info_allowcssclasses];
 
-        return (object) [
+        return (object)[
             'instance' => $instanceconfigs,
             'plugin' => $pluginconfigs,
         ];
