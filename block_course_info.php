@@ -81,7 +81,7 @@ class block_course_info extends block_base
 
         $this->content = new stdClass;
         $this->content->footer = '';
-        $this->title = 'Course information';
+        $this->title = get_string('pluginname', 'block_course_info');
         $courseid = context::instance_by_id($this->instance->parentcontextid)->instanceid;
         $idnumbers = explode(',', $DB->get_record('course', array('id' => $courseid))->idnumber);
         $daisyid = is_numeric(end($idnumbers)) ? trim(end($idnumbers)) : null;
