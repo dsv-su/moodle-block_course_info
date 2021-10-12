@@ -15,12 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Form for editing HTML block instances.
+ * Form for editing Course Info block instances.
  *
  * @package   block_course_info
  * @copyright 1999 onwards Martin Dougiamas (http://dougiamas.com)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+require_once($CFG->dirroot . '/blocks/course_info/locallib.php');
+
 class block_course_info extends block_base
 {
 
@@ -31,7 +34,7 @@ class block_course_info extends block_base
 
     function has_config()
     {
-        return false;
+        return true;
     }
 
     function applicable_formats()
@@ -84,13 +87,21 @@ class block_course_info extends block_base
         $this->title = get_string('pluginname', 'block_course_info');
         $courseid = context::instance_by_id($this->instance->parentcontextid)->instanceid;
         $idnumbers = explode(',', $DB->get_record('course', array('id' => $courseid))->idnumber);
-        $daisyid = is_numeric(end($idnumbers)) ? trim(end($idnumbers)) : null;
-        if ($daisyid) {
-            $this->content->text = '<a href="https://daisy.dsv.su.se/servlet/Momentinfo?id=' . $daisyid . '" target="_blank">' .
-                get_string('syllabus', 'block_course_info') . '</a><br/><a href="https://daisy.dsv.su.se/servlet/schema.moment.Momentschema?id=' .
-                $daisyid . '" target="_blank">' . get_string('schedule', 'block_course_info') . '</a>';
-        } else {
-            return null;
+        $this->content->text = '';
+        foreach ($idnumbers as $idnumber) {
+            $daisyid = is_numeric(trim($idnumber)) ? trim($idnumber) : null;
+            $designation = '';
+            if (count($idnumbers) > 1) {
+                $courseinfo = block_course_info_api_call(['rest', 'courseSegment', $daisyid]);
+                $designation = $courseinfo->designation ? ' (' . $courseinfo->designation . ')' : '';
+            }
+            if ($daisyid) {
+                $this->content->text .= '<p><a href="https://daisy.dsv.su.se/servlet/Momentinfo?id=' . $daisyid . '" target="_blank"><i class="icon fa fa-graduation-cap fa-fw" aria-hidden="true"></i>' .
+                    get_string('syllabus', 'block_course_info') . $designation . '</a><br/><a href="https://daisy.dsv.su.se/servlet/schema.moment.Momentschema?id=' .
+                    $daisyid . '" target="_blank"><i class="icon fa fa-calendar fa-fw" aria-hidden="true"></i>' . get_string('schedule', 'block_course_info') . $designation . '</a></p>';
+            } else {
+                return null;
+            }
         }
         return $this->content;
     }

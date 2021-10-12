@@ -22,12 +22,17 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['apiurl'] = 'API URL';
+$string['apiuser'] = 'API user';
+$string['apikey'] = 'API key';
 $string['configtitle'] = 'Add a new title';
 $string['course_info:addinstance'] = 'Add a new Course Information block';
 $string['course_info:myaddinstance'] = 'Add a new Course Information block to Dashboard';
+$string['curl_header'] = 'Curl header';
 $string['newcourseinfoblock'] = '(new Course Information block)';
 $string['pluginname'] = 'Course Information';
-$string['syllabus'] = 'Course syllabus';
-$string['schedule'] = 'Course schedule';
+$string['schedule'] = 'Schedule';
 $string['search:content'] = 'Course Information block content';
+$string['servererror'] = 'Server error';
+$string['syllabus'] = 'Syllabus';
 $string['privacy:metadata:block'] = 'The Course Information block stores all of its data within the block subsystem.';

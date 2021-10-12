@@ -22,12 +22,17 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['apiurl'] = 'API-adress';
+$string['apiuser'] = 'API-användare';
+$string['apikey'] = 'API-nyckel';
 $string['configtitle'] = 'Lägg till en ny titel';
 $string['course_info:addinstance'] = 'Lägg till ett nytt kursinformationsblock';
 $string['course_info:myaddinstance'] = 'Lägg till ett nytt kursinformationsblock till Mitt Hem';
+$string['curl_header'] = 'Curl header';
 $string['newcourseinfoblock'] = '(Nytt kursinformationsblock)';
 $string['pluginname'] = 'Kursinformation';
-$string['syllabus'] = 'Kursinformation';
-$string['schedule'] = 'Kursschema';
+$string['schedule'] = 'Schema';
 $string['search:content'] = 'Kursinformationsblockets innehåll';
+$string['servererror'] = 'Serverfel';
+$string['syllabus'] = 'Kursplan';
 $string['privacy:metadata:block'] = 'Kursinformationsblocket lagrar all sin data i blockets subsystem.';
